@@ -6,7 +6,7 @@ import { TiDelete } from "react-icons/ti"
 
 export default function Card({ title, imageSource, leftDescription, hasDeleteButton, onDelete , onEditClick }) {
   return (
-    <CardStyled className="produit" onClick={() => onEditClick({ title, imageSource, leftDescription })}>
+    <CardStyled className="produit" onClick={onEditClick}>
       {hasDeleteButton && (
         <button className="delete-button" aria-label="delete-button" onClick={onDelete}>
           <TiDelete className="icon" />
@@ -21,7 +21,7 @@ export default function Card({ title, imageSource, leftDescription, hasDeleteBut
         <div className="description">
           <div className="left-description">{leftDescription}</div>
           <div className="right-description">
-            <Button className="primary-button" label={"Ajouter"} />
+            <Button className="primary-button" label={"Ajouter"} onClick={onAdd} /> {/* Ajoutez cette ligne */}
           </div>
         </div>
       </div>

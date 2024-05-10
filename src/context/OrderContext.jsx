@@ -17,5 +17,13 @@ export default createContext({
   resetOrder: () => {},
 
   newProduct: [],
-  setNewProduct: () => {},
+  setNewProduct: () => { },
+  
+  cart: [],
+  addToCart: (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  },
+  removeFromCart: (productId) => {
+    setCart((prevCart) => prevCart.filter((product) => product.id !== productId));
+  },
 })

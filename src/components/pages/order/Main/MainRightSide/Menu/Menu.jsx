@@ -17,19 +17,24 @@ export default function Menu() {
     return <EmptyMenuAdmin onReset={resetMenu} />
   }
 
+  const handleAdd = (product) => {
+    // Logic to add the product to the cart
+  };
+
   return (
     <MenuStyled className="menu">
     {menu.map((product) => {
       return (
         <CardComponent
-          key={product.id}
-          title={product.title}
-          imageSource={product.imageSource ? product.imageSource : IMAGE_BY_DEFAULT}
-          leftDescription={formatPrice(product.price)}
-          hasDeleteButton={isModeAdmin}
-          onDelete={() => handleDelete(product.id)}
-          onEditClick={() => setNewProduct(product)}
-        />
+        key={product.id}
+        title={product.title}
+        imageSource={product.imageSource ? product.imageSource : IMAGE_BY_DEFAULT}
+        leftDescription={formatPrice(product.price)}
+        hasDeleteButton={isModeAdmin}
+        onDelete={() => handleDelete(product.id)}
+        onAdd={() => handleAdd(product)} 
+        onEditClick={() => setNewProduct(product)}
+      />
       )
     })}
   </MenuStyled>

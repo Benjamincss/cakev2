@@ -6,6 +6,9 @@ import Navbar from "./Navbar/Navbar"
 import OrderContext from "../../../context/OrderContext"
 import { fakeMenu2 } from "../../../fakeData/fakeMenu"
 import { EMPTY_PRODUCT } from "./Main/MainRightSide/Admin/AdminPanel/AddForm"
+import Cart  from "./Navbar/Cart"
+
+
 
 export default function OrderPage() {
   const [isModeAdmin, setIsModeAdmin] = useState(false)
@@ -54,8 +57,10 @@ export default function OrderPage() {
       <OrderPageStyled>
         <div className="container">
           <Navbar />
+          <Cart />
           <Main />
         </div>
+
       </OrderPageStyled>
     </OrderContext.Provider>
   )
