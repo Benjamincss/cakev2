@@ -12,7 +12,8 @@ export default createContext({
 
   order: [],
   handleAdd: () => {},
-  handleDelete: () => {},
+  handleDelete: () => { },
+  handleEdit: () => { },
   resetOrder: () => {},
 
   newProduct: [],

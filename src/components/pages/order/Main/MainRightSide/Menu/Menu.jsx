@@ -3,14 +3,14 @@ import styled from "styled-components"
 import OrderContext from "../../../../../../context/OrderContext"
 import { theme } from "../../../../../../theme"
 import { formatPrice } from "../../../../../../utils/maths"
-import Card from "../../../../../reusable-ui/Card"
+import CardComponent from "../../../../../reusable-ui/Card"
 import EmptyMenuAdmin from "./EmptyMenuAdmin"
 import EmptyMenuClient from "./EmptyMenuClient"
 
 const IMAGE_BY_DEFAULT = "/images/cupcake-item.png";
 
 export default function Menu() {
-  const { menu, isModeAdmin, handleDelete, resetMenu } = useContext(OrderContext);
+  const { menu, isModeAdmin, handleDelete, resetMenu, setNewProduct  } = useContext(OrderContext);
 
   if (menu.length === 0) {
     if (!isModeAdmin) return <EmptyMenuClient />
@@ -19,19 +19,20 @@ export default function Menu() {
 
   return (
     <MenuStyled className="menu">
-      {menu.map(({ id, title, imageSource, price }) => {
-        return (
-          <Card
-            key={id}
-            title={title}
-            imageSource={imageSource ? imageSource : IMAGE_BY_DEFAULT}
-            leftDescription={formatPrice(price)}
-            hasDeleteButton={isModeAdmin}
-            onDelete={() => handleDelete(id)}
-          />
-        )
-      })}
-    </MenuStyled>
+    {menu.map((product) => {
+      return (
+        <CardComponent
+          key={product.id}
+          title={product.title}
+          imageSource={product.imageSource ? product.imageSource : IMAGE_BY_DEFAULT}
+          leftDescription={formatPrice(product.price)}
+          hasDeleteButton={isModeAdmin}
+          onDelete={() => handleDelete(product.id)}
+          onEditClick={() => setNewProduct(product)}
+        />
+      )
+    })}
+  </MenuStyled>
   )
 }
 
