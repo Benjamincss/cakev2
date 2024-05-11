@@ -10,29 +10,27 @@ import { getInputTextsConfig } from "./inputTextConfig"
 
 export default function EditForm() {
     const { handleEdit, newProduct, setNewProduct } = useContext(OrderContext)
-    const [editedProduct, setEditedProduct] = useState(newProduct)
     const [liveProduct, setLiveProduct] = useState(newProduct)
     const [isSubmitted, setIsSubmitted] = useState(false) 
 
-    useEffect(() => {
-        setEditedProduct(newProduct)
-        setLiveProduct(newProduct)
-    }, [newProduct])
 
+    useEffect(() => {
+        setLiveProduct(newProduct)
+    }, [newProduct]  )
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        setLiveProduct(prevProduct => ({ ...prevProduct, [name]: value }))
+    }
+   
     const handleSubmit = (event) => {
         event.preventDefault()
         handleEdit(liveProduct)
-        setNewProduct(liveProduct)
         displaySuccessMessage()
     }
 
-    const handleChange = (event) => {
-        const { name, value } = event.target
-        const updatedProduct = { ...liveProduct, [name]: value }
-        setLiveProduct(updatedProduct)
-        setNewProduct(updatedProduct)
-    }
-
+    
+    
+    
     const displaySuccessMessage = () => {
         setIsSubmitted(true)
         setTimeout(() => {
@@ -41,10 +39,9 @@ export default function EditForm() {
     }
 
     const inputTexts = getInputTextsConfig(liveProduct)
-
     return (
         <EditFormStyled onSubmit={handleSubmit}>
-        <ImagePreview imageSource={editedProduct.imageSource} title={editedProduct.title} />
+        <ImagePreview imageSource={liveProduct.imageSource} title={liveProduct.title} />
         <div className="input-fields">
             {inputTexts.map((input) => (
                 <TextInput {...input} key={input.id} onChange={handleChange} version="minimalist" />

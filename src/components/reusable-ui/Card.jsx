@@ -4,7 +4,7 @@ import Button from "./Button"
 
 import { TiDelete } from "react-icons/ti"
 
-export default function Card({ title, imageSource, leftDescription, hasDeleteButton, onDelete , onEditClick }) {
+export default function Card({ title, imageSource, leftDescription, hasDeleteButton, onDelete , onEditClick  , onAdd}) {
   return (
     <CardStyled className="produit" onClick={onEditClick}>
       {hasDeleteButton && (
@@ -21,7 +21,7 @@ export default function Card({ title, imageSource, leftDescription, hasDeleteBut
         <div className="description">
           <div className="left-description">{leftDescription}</div>
           <div className="right-description">
-            <Button className="primary-button" label={"Ajouter"} onClick={onAdd} /> {/* Ajoutez cette ligne */}
+          <Button className="primary-button" label={"Ajouter"} onClick={onAdd} />
           </div>
         </div>
       </div>

@@ -10,16 +10,13 @@ import EmptyMenuClient from "./EmptyMenuClient"
 const IMAGE_BY_DEFAULT = "/images/cupcake-item.png";
 
 export default function Menu() {
-  const { menu, isModeAdmin, handleDelete, resetMenu, setNewProduct  } = useContext(OrderContext);
+  const { menu, isModeAdmin, handleDelete, resetMenu, setNewProduct , addProductToOrder , handleAdd , products , addToCart  } = useContext(OrderContext);
 
   if (menu.length === 0) {
     if (!isModeAdmin) return <EmptyMenuClient />
     return <EmptyMenuAdmin onReset={resetMenu} />
   }
 
-  const handleAdd = (product) => {
-    // Logic to add the product to the cart
-  };
 
   return (
     <MenuStyled className="menu">
@@ -29,11 +26,13 @@ export default function Menu() {
         key={product.id}
         title={product.title}
         imageSource={product.imageSource ? product.imageSource : IMAGE_BY_DEFAULT}
-        leftDescription={formatPrice(product.price)}
+          leftDescription={formatPrice(product.price)}
+            onAdd={() => addToCart(product)}
         hasDeleteButton={isModeAdmin}
         onDelete={() => handleDelete(product.id)}
-        onAdd={() => handleAdd(product)} 
-        onEditClick={() => setNewProduct(product)}
+        
+          onEditClick={() => setNewProduct(product)}
+          
       />
       )
     })}

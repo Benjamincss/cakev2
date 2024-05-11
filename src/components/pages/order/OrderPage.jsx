@@ -16,6 +16,8 @@ export default function OrderPage() {
   const [currentTabSelected, setCurrentTabSelected] = useState("add")
   const [menu, setMenu] = useState(fakeMenu2)
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
+  const [cart, setCart] = useState([])
+  
 
   const handleAdd = (newProduct) => {
     const menuCopy = [...menu]
@@ -33,6 +35,10 @@ export default function OrderPage() {
     setMenu(menuUpdated)
   }
 
+  const handleEdit = (updatedProduct) => {
+    setMenu(prevMenu => prevMenu.map(product => product.id === updatedProduct.id ? { ...updatedProduct } : product));
+  }
+
   const resetMenu = () => {
     setMenu(fakeMenu2)
   }
@@ -46,10 +52,48 @@ export default function OrderPage() {
     setCurrentTabSelected,
     menu,
     handleAdd,
+    handleEdit, 
     handleDelete,
     resetMenu,
     newProduct,
     setNewProduct,
+    cart,
+
+
+    
+
+    addToCart: (product) => {
+      setCart((prevCart) => {
+        const productExists = prevCart.find((p) => p.id === product.id);
+    
+        if (productExists) {
+          return prevCart.map((p) =>
+            p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+          );
+        } else {
+          return [...prevCart, { ...product, quantity: 1 }];
+        }
+      });
+    },
+    removeFromCart: (productId) => {
+      setCart((prevCart) => {
+        return prevCart.reduce((acc, product) => {
+          if (product.id === productId) {
+            if (product.quantity > 1) {
+              acc.push({ ...product, quantity: product.quantity - 1 });
+            }
+          } else {
+            acc.push(product);
+          }
+          return acc;
+        }, []);
+      });
+    }
+
+    
+
+
+    
   }
 
   return (
